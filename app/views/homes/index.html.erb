@@ -24,23 +24,25 @@
 <% @homes.each do |home| %>
   <tr id="row_<%= Digest::MD5.hexdigest(home.id.to_s) %>"<%= home.favorite ? ' class="favorite"' : '' %>>
     <td><%= link_to image_tag("http://photo.wfrmls.com/105x79/#{home.mls_number}.jpg", :size => '105x79'),
-                   "http://www.utahrealestate.com/#{home.mls_number}",
-                   {:target => '_mls'} %>
-    </td>
+                    "http://www.utahrealestate.com/#{home.mls_number}",
+                    {:target => '_mls'} %></td>
     <td class="mls-number"><%= link_to home.mls_number, "http://www.utahrealestate.com/#{home.mls_number}", {:target => '_mls'} %></td>
-    <td class="price"><%= number_to_currency(home.price, :precision => 0) %></td>
+    <td class="price"><%= number_to_currency home.price, :precision => 0 %></td>
     <td class="square-feet"><%=h home.square_feet %></td>
     <td><%= link_to home.address,
                     "http://maps.google.com/maps?q=#{CGI::escape(home.address)}&z=13",
-                    {:target => '_map'} %>
-    </td>
+                    {:target => '_map'} %></td>
     <td><%=h home.short_sale ? 'Yes' : 'No' %></td>
     <td>
       <%= link_to 'Show', home %>
       <%= link_to 'Edit', edit_home_path(home) %>
-      <%= button_to 'Not interested', { :action => "not_interested", :id => home.id }, :confirm => 'Are you sure you are no longer interested in this home?', :method => :put %>
-
-      <!--<%= button_to 'Delete', home, :confirm => "Are you sure you want to delete this home?\nThis cannot be undone.", :method => :delete %>-->
+      <%= button_to 'Not interested',
+                    { :action => "not_interested", :id => home.id },
+                    :confirm => 'Are you sure you are no longer interested in this home?', :method => :put %>
+      <%= button_to 'Delete',
+                    home,
+                    :confirm => "Are you sure you want to delete this home?\nThis cannot be undone.",
+                    :method => :delete %>
     </td>
   </tr>
 <% end %>

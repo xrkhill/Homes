@@ -34,6 +34,7 @@ class HomesController < ApplicationController
   # GET /homes/new
   # GET /homes/new/654321
   # GET /homes/new.xml
+  # GET /homes/new/654321.xml
   def new
     @home = Home.new
 

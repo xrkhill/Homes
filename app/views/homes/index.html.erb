@@ -1,0 +1,47 @@
+<h1>Listing homes</h1>
+
+<% form_tag(new_home_path, :method => 'get') do |f| %>
+  <p>
+    <%= label_tag(:mls_number, 'Create a new home from MLS#:') %>
+    <%= text_field_tag(:mls_number) %>
+    <%= submit_tag('Create') %>
+    or
+    <%= link_to 'Create a new home manually', new_home_path %>
+  </p>
+<% end %>
+
+
+<table>
+  <tr>
+    <th>Photo</th>
+    <th>MLS#</th>
+    <th>Price</th>
+    <th>Square feet</th>
+    <th>Address</th>
+    <th>Short sale?</th>
+    <th colspan="3">Actions</th>
+  </tr>
+<% @homes.each do |home| %>
+  <tr id="row_<%= Digest::MD5.hexdigest(home.id.to_s) %>"<%= home.favorite ? ' class="favorite"' : '' %>>
+    <td><%= link_to image_tag("http://photo.wfrmls.com/105x79/#{home.mls_number}.jpg", :size => '105x79'),
+                   "http://www.utahrealestate.com/#{home.mls_number}",
+                   {:target => '_mls'} %>
+    </td>
+    <td class="mls-number"><%= link_to home.mls_number, "http://www.utahrealestate.com/#{home.mls_number}", {:target => '_mls'} %></td>
+    <td class="price"><%= number_to_currency(home.price, :precision => 0) %></td>
+    <td class="square-feet"><%=h home.square_feet %></td>
+    <td><%= link_to home.address,
+                    "http://maps.google.com/maps?q=#{CGI::escape(home.address)}&z=13",
+                    {:target => '_map'} %>
+    </td>
+    <td><%=h home.short_sale ? 'Yes' : 'No' %></td>
+    <td>
+      <%= link_to 'Show', home %>
+      <%= link_to 'Edit', edit_home_path(home) %>
+      <%= button_to 'Not interested', { :action => "not_interested", :id => home.id }, :confirm => 'Are you sure you are no longer interested in this home?', :method => :put %>
+
+      <!--<%= button_to 'Delete', home, :confirm => "Are you sure you want to delete this home?\nThis cannot be undone.", :method => :delete %>-->
+    </td>
+  </tr>
+<% end %>
+</table>

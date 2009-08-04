@@ -1,0 +1,21 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  mls_number: 
+  price: 9.99
+  squre_feet: 
+  short_sale: 
+  address: MyString
+  city: MyString
+  zip: MyString
+  favorite: 
+
+two:
+  mls_number: 
+  price: 9.99
+  squre_feet: 
+  short_sale: 
+  address: MyString
+  city: MyString
+  zip: MyString
+  favorite: 

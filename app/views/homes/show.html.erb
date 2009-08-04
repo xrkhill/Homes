@@ -1,0 +1,53 @@
+<p><%= link_to(image_tag("http://photo.wfrmls.com/280x210/#{@home.mls_number}.jpg", :size => '280x210'),
+               "http://utahrealestate.com/reports/photo/index.wfr?types=&find_listno=#{@home.mls_number}&ptype=p_res",
+               {:target => '_photos'}) %>
+</p>
+
+<p>
+  <b>MLS number:</b>
+  <%=h @home.mls_number %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%=h @home.price %>
+</p>
+
+<p>
+  <b>Square feet:</b>
+  <%=h @home.square_feet %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%=h @home.address %>
+</p>
+
+<p>
+  <b>Viewed:</b>
+  <%=h @home.viewed %>
+</p>
+
+<p>
+  <b>Short sale:</b>
+  <%=h @home.short_sale %>
+</p>
+
+<p>
+  <b>Favorite:</b>
+  <%=h @home.favorite %>
+</p>
+
+<p>
+  <b>Active:</b>
+  <%=h @home.active %>
+</p>
+
+<p>
+  <b>Interested:</b>
+  <%=h @home.interested %>
+</p>
+
+
+<%= link_to 'Edit', edit_home_path(@home) %> |
+<%= link_to 'Back', homes_path + "#row_#{Digest::MD5.hexdigest(@home.id.to_s)}" %>

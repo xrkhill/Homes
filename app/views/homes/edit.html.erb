@@ -1,0 +1,53 @@
+<h1>Editing home</h1>
+
+<% form_for(@home) do |f| %>
+  <%= f.error_messages %>
+
+  <p><%= link_to(image_tag("http://photo.wfrmls.com/280x210/#{@home.mls_number}.jpg", :size => '280x210'),
+                 "http://utahrealestate.com/reports/photo/index.wfr?types=&find_listno=#{@home.mls_number}&ptype=p_res",
+                 {:target => '_photos'}) %>
+  </p>
+
+  <p>
+    <%= f.label :mls_number %><br />
+    <%= f.text_field :mls_number %>
+  </p>
+  <p>
+    <%= f.label :price %><br />
+    <%= f.text_field :price %>
+  </p>
+  <p>
+    <%= f.label :square_feet %><br />
+    <%= f.text_field :square_feet %>
+  </p>
+  <p>
+    <%= f.label :address %><br />
+    <%= f.text_field :address %>
+  </p>
+  <p>
+    <%= f.label :viewed %><br />
+    <%= f.text_field :viewed %>
+  </p>
+  <p>
+    <%= f.label :short_sale %><br />
+    <%= f.check_box :short_sale %>
+  </p>
+  <p>
+    <%= f.label :favorite %><br />
+    <%= f.check_box :favorite %>
+  </p>
+  <p>
+    <%= f.label :active %><br />
+    <%= f.check_box :active %>
+  </p>
+  <p>
+    <%= f.label :interested %><br />
+    <%= f.check_box :interested %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @home %> |
+<%= link_to 'Back', homes_path %>

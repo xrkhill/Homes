@@ -10,19 +10,64 @@
   </p>
 <% end %>
 
+<p>
+  Show
+  <%=
+    link_to_if(!params[:order], 'all', {  }) do
+      link_to('all', { :order => @order, :direction => @direction_current })
+    end
+  %>,
+  <%=
+    link_to_if(!params[:order], 'favorite', { :show => 'favorite' }) do
+      link_to('favorite', { :show => 'favorite', :order => @order, :direction => @direction_current })
+    end
+  %>,
+  <%=
+    link_to_if(!params[:order], 'short sale', { :show => 'short_sale' }) do
+      link_to('short sale', { :show => 'short_sale', :order => @order, :direction => @direction_current })
+    end
+  %>
+  listings or clear all
+  <%= link_to('filters', {  }) %>
+</p>
 
 <table>
   <tr>
     <th>Photo</th>
-    <th>MLS#</th>
-    <th>Price</th>
-    <th>Square feet</th>
+    <th>
+      <%=
+        link_to_if(!params[:show], 'MLS#', { :order => 'mls_number', :direction => @direction_new }) do
+          link_to('MLS#', { :order => 'mls_number', :direction => @direction_new, :show => params[:show] })
+        end
+      %>
+    </th>
+    <th>
+      <%=
+        link_to_if(!params[:show], 'Price', { :order => 'price', :direction => @direction_new }) do
+          link_to('Price', { :order => 'price', :direction => @direction_new, :show => params[:show] })
+        end
+      %>
+    </th>
+    <th>
+      <%=
+        link_to_if(!params[:show], 'Square feet', { :order => 'price', :direction => @direction_new }) do
+          link_to('Square feet', { :order => 'price', :direction => @direction_new, :show => params[:show] })
+        end
+      %>
+    </th>
     <th>Address</th>
     <th>Short sale?</th>
+    <th>
+      <%=
+        link_to_if(!params[:show], 'Date Added', { :order => 'created_at', :direction => @direction_new }) do
+          link_to('Date Added', { :order => 'created_at', :direction => @direction_new, :show => params[:show] })
+        end
+      %>
+    </th>
     <th colspan="3">Actions</th>
   </tr>
 <% @homes.each do |home| %>
-  <tr id="row_<%= Digest::MD5.hexdigest(home.id.to_s) %>"<%= home.favorite ? ' class="favorite"' : '' %>>
+  <tr id="row_<%= Digest::MD5.hexdigest(home.id.to_s) %>" class="<%= cycle('even ', 'odd ') -%><%= home.favorite ? 'favorite' : '' -%>">
     <td><%= link_to image_tag("http://photo.wfrmls.com/105x79/#{home.mls_number}.jpg", :size => '105x79'),
                     "http://www.utahrealestate.com/#{home.mls_number}",
                     {:target => '_mls'} %></td>
@@ -32,7 +77,10 @@
     <td><%= link_to home.address,
                     "http://maps.google.com/maps?q=#{CGI::escape(home.address)}&z=13",
                     {:target => '_map'} %></td>
-    <td><%=h home.short_sale ? 'Yes' : 'No' %></td>
+    <td class="short-sale"><%= home.short_sale ? '<strong>Yes</strong>' : 'No' %></td>
+    <td class="date-added">
+      <%= time_ago_in_words(Time.parse(home.created_at.to_s)) %> ago
+    </td>
     <td>
       <%= link_to 'Show', home %>
       <%= link_to 'Edit', edit_home_path(home) %>

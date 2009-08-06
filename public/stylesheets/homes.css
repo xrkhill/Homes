@@ -1,34 +1,37 @@
-table th, table td {
-  /*
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
-  */
+table {
   border: 1px solid black;
 }
 
-table tr {
-  border: 1px solid black;
+th, td {
+  /*border: 1px solid black;*/
 }
 
-table tr.favorite {
+tr {
+  /*border: 1px solid black;*/
+}
+
+tr.even {
+  background-color: #dddddd;
+}
+
+tr.favorite {
   background-color: #ffff99;
 }
 
-table tr.interested {
+tr.interested {
   background-color: #ccff99;
 }
 
-table tr.selected {
-  background-color: #38D878;
+tr.selected {
   background-color: #ccff99;
 }
 
-table td.price {
+td.price {
   color: green;
   font-weight: bold;
   text-align: center;
 }
 
-table td.square-feet, table td.mls-number {
+td.square-feet, td.mls-number, td.short-sale {
   text-align: center;
 }

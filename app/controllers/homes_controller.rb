@@ -12,7 +12,28 @@ class HomesController < ApplicationController
   # GET /homes
   # GET /homes.xml
   def index
-    @homes = Home.all(:conditions => "active = 't' AND interested = 't'", :order => "created_at DESC")
+    # filter
+    if params[:show]
+      conditions = "AND #{params[:show]} = 't'"
+    end
+
+    # order by column
+    if params[:order]
+      @order = params[:order]
+    else
+      @order = "created_at"
+    end
+
+    # sorting direction; desc by default
+    if params[:direction] && params[:direction] == 'desc'
+      @direction_current = 'desc'
+      @direction_new = 'asc'
+    else
+      @direction_current = 'asc'
+      @direction_new = 'desc'
+    end
+
+    @homes = Home.all(:conditions => "active = 't' AND interested = 't' #{conditions}", :order => @order + ' ' + @direction_new)
 
     respond_to do |format|
       format.html # index.html.erb

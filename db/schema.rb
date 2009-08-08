@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090801210605) do
+ActiveRecord::Schema.define(:version => 20090808043856) do
 
   create_table "homes", :force => true do |t|
     t.integer  "mls_number"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(:version => 20090801210605) do
     t.boolean  "active"
     t.date     "viewed"
     t.boolean  "interested"
+    t.text     "notes"
   end
 
 end

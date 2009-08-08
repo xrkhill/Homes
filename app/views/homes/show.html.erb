@@ -48,6 +48,11 @@
   <%=h @home.interested %>
 </p>
 
+<p>
+  <b>Notes:</b>
+  <%=h @home.notes %>
+</p>
+
 
 <%= link_to 'Edit', edit_home_path(@home) %> |
 <%= link_to 'Back', homes_path + "#row_#{Digest::MD5.hexdigest(@home.id.to_s)}" %>

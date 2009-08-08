@@ -32,6 +32,12 @@ td.price {
   text-align: center;
 }
 
+td.address a {
+  display: block;
+  width: 200px;
+  overflow: hidden;
+}
+
 td.square-feet, td.mls-number, td.short-sale {
   text-align: center;
 }

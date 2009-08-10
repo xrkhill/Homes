@@ -79,15 +79,16 @@
     <td class="price"><%= number_to_currency home.price, :precision => 0 %></td>
     <td class="square-feet"><%=h home.square_feet %></td>
     <td class="address"><%= link_to home.address,
-                    "http://maps.google.com/maps?q=#{CGI::escape(home.address)}&z=13",
+                    "http://maps.google.com/maps?q=#{CGI::escape(home.address)}&z=14",
                     {:target => '_map'} %></td>
     <td class="short-sale"><%= home.short_sale ? content_tag(:strong, 'Yes') : 'No' %></td>
-    <td class="date-added"><%= time_ago_in_words(Time.parse(home.created_at.to_s)) %> ago</td>
+    <!--<td class="date-added"><%= time_ago_in_words(Time.parse(home.created_at.to_s)) %> ago</td>-->
+    <td class="date-added"><%= Time.parse(home.created_at.to_s).strftime("%m/%d/%y") %></td>
     <!--<td><%= time_ago_in_words(Time.parse(home.viewed.to_s)) %></td>-->
-    <td><%= Time.parse(home.viewed.to_s).strftime("%m/%d/%y") %></td>
+    <td><%= home.viewed ? Time.parse(home.viewed.to_s).strftime("%m/%d/%y") : 'not yet' %></td>
     <td><%= link_to home.notes ? truncate(home.notes) : 'no notes...', home %></td>
     <td>
-      <%= link_to 'Show', home %>
+      <%= link_to 'Show', { :action => "show", :id => home.mls_number } %>
       <%= link_to 'Edit', edit_home_path(home) %>
       <%= button_to 'Not interested',
                     { :action => "not_interested", :id => home.id },

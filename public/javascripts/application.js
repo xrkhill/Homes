@@ -8,12 +8,12 @@ $(document).ready(function(){
     }
   }
 
-  /*
+  //*
   // hilight the item clicked
   $('table td.price').toggle(function(){
-    $(this).parent().addClass('selected');
+    $(this).parent().addClass('marked');
   },function(){
-    $(this).parent().removeClass('selected');
+    $(this).parent().removeClass('marked');
   });
-  */
+  //*/
 });

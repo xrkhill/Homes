@@ -26,16 +26,18 @@ tr.selected {
   background-color: #ccff99;
 }
 
+tr.marked {
+  background-color: #ffcccc;
+}
+
 td.price {
   color: green;
   font-weight: bold;
   text-align: center;
 }
 
-td.address a {
-  display: block;
-  width: 200px;
-  overflow: hidden;
+td.address {
+  width: 180px;
 }
 
 td.square-feet, td.mls-number, td.short-sale {

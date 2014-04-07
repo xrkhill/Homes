@@ -18,17 +18,15 @@
     end
   %>,
   <%=
-    link_to_if(!params[:order], 'favorite', { :show => 'favorite' }) do
+    link_to_if(!params[:order], 'favorites', { :show => 'favorite' }) do
       link_to('favorite', { :show => 'favorite', :order => @order, :direction => @direction_current })
     end
-  %>,
+  %>, or
   <%=
-    link_to_if(!params[:order], 'short sale', { :show => 'short_sale' }) do
+    link_to_if(!params[:order], 'short sales', { :show => 'short_sale' }) do
       link_to('short sale', { :show => 'short_sale', :order => @order, :direction => @direction_current })
     end
   %>
-  listings or clear all
-  <%= link_to('filters', {  }) %>
 </p>
 
 <table>

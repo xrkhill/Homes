@@ -12,17 +12,18 @@ class HomesController < ApplicationController
   # GET /homes
   # GET /homes.xml
   def index
-    # filter
-    if params[:show]
-      conditions = "AND #{params[:show]} = 't'"
+    # quick filters
+    case params[:show]
+    when 'favorite'
+      filters = { :favorite => true }
+    when 'short_sale'
+      filters = { :short_sale => true }
+    else
+      filters = {}
     end
 
     # order by column
-    if params[:order]
-      @order = params[:order]
-    else
-      @order = "created_at"
-    end
+    @order = Home.column_names.include?(params[:order]) ? params[:sort] : 'created_at'
 
     # sorting direction; desc by default
     if params[:direction] && params[:direction] == 'desc'
@@ -33,7 +34,7 @@ class HomesController < ApplicationController
       @direction_new = 'desc'
     end
 
-    @homes = Home.all(:conditions => "active = 't' AND interested = 't' #{conditions}", :order => @order + ' ' + @direction_new)
+    @homes = Home.all(:conditions => { :active => true, :interested => true }.merge!(filters), :order => @order + ' ' + @direction_new)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -66,12 +67,12 @@ class HomesController < ApplicationController
     # don't show photo if there is no MLS#
     @show_photo = false
 
-    if params[:mls_number] != nil && params[:mls_number].empty? != true
+    unless params[:mls_number].blank?
       @home.mls_number = params[:mls_number].strip
       @show_photo = true
 
       # pull info from MLS
-      res = Net::HTTP.get_response(URI.parse("http://www.utahhomes.com/#{params[:mls_number].strip}"))
+      res = Net::HTTP.get_response(URI.parse("http://www.utahhomes.com/#{@home.mls_number}"))
 
       # search HTML for relevant fields
       @home.price = res.body.scan(/<input name="hdnPrice" type="hidden" id="hdnPrice" size="1" value="(\d+)" \/>/)
